@@ -4,8 +4,13 @@ import { Server as SocketServer } from 'socket.io'
 
 const app = express()
 const server = http.createServer(app)
+const port = process.env.PORT || 4000
 
 const io = new SocketServer(server)
+
+app.get('/', (req, res) => {
+    res.send( 'Hello World!' )
+})
 
 io.on('connection', socket => {
     console.log('User connected' )
@@ -22,5 +27,6 @@ io.on('connection', socket => {
     })
 })
 
-server.listen(4000)
-console.log('Server on por', 4000);
+server.listen(port , () => {
+    console.log(`Server listening on port ${port}`)
+})
